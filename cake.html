@@ -3,6 +3,8 @@
 <head>
 <title>Cute Birthday Cake</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
     margin: 0;
@@ -12,7 +14,6 @@ body {
     justify-content: center;
     align-items: center;
     font-family: Arial;
-
     background: linear-gradient(135deg, #d9f2ff, #b3e5ff, #e6f7ff);
 }
 
@@ -33,7 +34,9 @@ body {
 /* CARD */
 .card {
     text-align: center;
-    padding: 30px;
+    padding: 8vw;
+    width: 85vw;
+    max-width: 420px;
     border-radius: 25px;
     background: rgba(255,255,255,0.55);
     backdrop-filter: blur(15px);
@@ -50,37 +53,41 @@ body {
 
 h2 {
     color: #2b8bbd;
-    text-shadow: 0 0 10px rgba(79,195,247,0.4);
+    font-size: 6.5vw;
+    text-shadow: 0 0 12px rgba(79,195,247,0.5);
 }
 
 p {
     color: #555;
-    font-size: 13px;
+    font-size: 4.2vw;
 }
 
-/* CAKE IMAGE */
+p span {
+    font-size: 3.5vw;
+}
+
 .cake-img {
-    width: 220px;
-    margin-top: 15px;
+    width: 55vw;
+    max-width: 260px;
+    margin-top: 20px;
     border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     cursor: pointer;
     transition: transform 0.2s;
 }
 
 .cake-img:active {
-    transform: scale(0.98);
+    transform: scale(0.95);
 }
 
-/* BUTTON */
 .next-btn {
-    margin-top: 15px;
-    padding: 10px 18px;
+    margin-top: 20px;
+    padding: 14px 22px;
     border: none;
     border-radius: 20px;
     background: #4cc9f0;
     color: white;
-    font-size: 14px;
+    font-size: 4.5vw;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     transition: 0.2s;
@@ -94,8 +101,8 @@ p {
 /* CONFETTI */
 .confetti {
     position: fixed;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     top: -10px;
     opacity: 0.9;
     z-index: 9999;
@@ -108,32 +115,44 @@ p {
         opacity: 0;
     }
 }
+
+/* ORB SIZES */
+.orb:nth-child(1){ width:12vw; height:12vw; left:10%; }
+.orb:nth-child(2){ width:8vw; height:8vw; left:25%; }
+.orb:nth-child(3){ width:15vw; height:15vw; left:70%; }
+
+/* DESKTOP FIX */
+@media (min-width: 768px) {
+    h2 { font-size: 28px; }
+    p { font-size: 16px; }
+    p span { font-size: 13px; }
+    .cake-img { width: 240px; }
+    .next-btn { font-size: 16px; }
+}
 </style>
 </head>
 
 <body>
 
 <!-- 🎵 MUSIC -->
-<audio id="bgm" autoplay loop>
+<audio id="bgm" loop>
     <source src="hbday.mp3" type="audio/mpeg">
 </audio>
 
 <!-- FLOATING ORBS -->
-<div class="orb" style="width:80px;height:80px;left:10%;animation-duration:14s;"></div>
-<div class="orb" style="width:50px;height:50px;left:25%;animation-duration:10s;"></div>
-<div class="orb" style="width:100px;height:100px;left:70%;animation-duration:16s;"></div>
+<div class="orb" style="animation-duration:14s;"></div>
+<div class="orb" style="animation-duration:10s;"></div>
+<div class="orb" style="animation-duration:16s;"></div>
 
 <!-- CARD -->
 <div class="card">
 
     <h2 id="title">🎂 Happy Birthday 🎉</h2>
-   <p id="instruction">
-Make a wish first ✨<br>
-and click the cake 🎂<br><br>
-<span style="font-size:12px; color:#777;">
-Note: Please wait for the birthday song to load before clicking 💙
-</span>
-</p>
+
+    <p id="instruction">
+        Make a wish first ✨<br>
+        and click the cake 🎂<br><br>
+    </p>
 
     <!-- CAKE -->
     <img src="cake.png" class="cake-img" onclick="celebrate()">
@@ -147,11 +166,23 @@ Note: Please wait for the birthday song to load before clicking 💙
 <script>
 let name = localStorage.getItem("name");
 document.getElementById("title").innerText =
-"Happy Birthday Love " + name + " 🎉";
+"Happy Birthday Love, " + name + " 🎉";
 
-/* autoplay fix for mobile */
-window.addEventListener("click", () => {
-    document.getElementById("bgm").play();
+const bgm = document.getElementById("bgm");
+
+/* PLAY FROM 12 SECONDS */
+function playMusic() {
+    bgm.currentTime = 12;
+    bgm.play();
+}
+
+/* MOBILE AUTOPLAY FIX (tap once) */
+window.addEventListener("click", playMusic, { once: true });
+
+/* LOOP FROM 12s INSTEAD OF 0 */
+bgm.addEventListener("ended", () => {
+    bgm.currentTime = 12;
+    bgm.play();
 });
 
 /* CONFETTI */
