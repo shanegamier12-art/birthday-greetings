@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dreamy Card</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    
+    /* Light blue dreamy background */
+    background: linear-gradient(135deg, #cfefff, #e6f7ff, #b3e5ff);
+}
+
+/* Floating glowing circles */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+    animation: floatUp 10s linear infinite;
+    backdrop-filter: blur(2px);
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-20vh) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Glassmorphism card */
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 300px;
+    padding: 25px;
+    text-align: center;
+    
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    
+    color: #2c3e50;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #ffffff80;
+    backdrop-filter: blur(5px);
+}
+button:hover {
+    background: #ffffffb3;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Glass card -->
+<div class="card">
+    <h2>💌 A Little Surprise</h2>
+    <p>Something soft, dreamy, and special for you.</p>
+    <button onclick="next()">Open Card</button>
+</div>
+
+<script>
+// Floating circles
+for(let i=0;i<25;i++){
+    let c = document.createElement("div");
+    c.className = "circle";
+
+    let size = Math.random()*80 + 20;
+    c.style.width = size + "px";
+    c.style.height = size + "px";
+
+    c.style.left = Math.random()*100 + "vw";
+    c.style.animationDuration = (Math.random()*5 + 6) + "s";
+    c.style.animationDelay = Math.random()*5 + "s";
+
+    document.body.appendChild(c);
+}
+
+// Redirect
+function next(){
+    window.location.href = "card.html";
+}
+</script>
+
+</body>
+</html>

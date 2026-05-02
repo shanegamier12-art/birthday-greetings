@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Greeting</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: "Arial", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #d9f2ff, #b3e5ff, #e6f7ff);
+    overflow: hidden;
+}
+
+/* FLOATING BACKGROUND ELEMENTS */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    animation: float 12s infinite linear;
+    filter: blur(1px);
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+
+/* MAIN CARD */
+.card {
+    position: relative;
+    text-align: center;
+    padding: 50px 35px;
+    width: 340px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    animation: fadeIn 1.5s ease;
+}
+
+/* FADE IN */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* TITLE */
+h1 {
+    font-size: 22px;
+    color: #2b8bbd;
+    margin-bottom: 10px;
+    animation: glow 2s infinite alternate;
+}
+
+/* GLOW EFFECT */
+@keyframes glow {
+    from { text-shadow: 0 0 5px #4fc3f7; }
+    to { text-shadow: 0 0 15px #29b6f6; }
+}
+
+/* SUBTEXT */
+p {
+    color: #555;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+/* BUTTON */
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 20px rgba(41,182,246,0.4);
+}
+
+/* SMALL DECOR HEART */
+.heart {
+    font-size: 18px;
+    color: #4fc3f7;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- FLOATING BACKGROUND -->
+<div class="circle" style="width:80px;height:80px;left:10%;animation-duration:14s;"></div>
+<div class="circle" style="width:50px;height:50px;left:25%;animation-duration:10s;"></div>
+<div class="circle" style="width:100px;height:100px;left:70%;animation-duration:16s;"></div>
+<div class="circle" style="width:40px;height:40px;left:85%;animation-duration:12s;"></div>
+
+<!-- CARD -->
+<div class="card">
+
+    <div class="heart">💙✨</div>
+
+    <h1 id="greet"></h1>
+
+    <p>May your day be filled with happiness, love, and magical moments ✨</p>
+
+    <button onclick="next()">Continue 🎂</button>
+</div>
+
+<script>
+let name = localStorage.getItem("name");
+
+document.getElementById("greet").innerText =
+"Happy Birthday Love, " + name + " 🎉";
+
+function next(){
+    window.location.href = "cake.html";
+}
+</script>
+
+</body>
+</html>

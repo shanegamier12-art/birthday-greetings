@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Entry</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Arial", sans-serif;
+    background: linear-gradient(135deg, #d9f2ff, #b3e5ff, #e6f7ff);
+    overflow: hidden;
+}
+
+/* FLOATING BACKGROUND SHAPES */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    animation: float 10s infinite linear;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+
+/* CARD */
+.box {
+    position: relative;
+    text-align: center;
+    padding: 40px;
+    width: 320px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    animation: fadeIn 1.5s ease;
+}
+
+/* FADE IN */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* TITLE */
+h2 {
+    color: #2b8bbd;
+    margin-bottom: 10px;
+}
+
+/* INPUT */
+input {
+    width: 80%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #b3e5ff;
+    outline: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* BUTTON */
+button {
+    margin-top: 15px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(41,182,246,0.4);
+}
+
+/* SMALL TEXT */
+p {
+    font-size: 12px;
+    color: #555;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- FLOATING CIRCLES -->
+<div class="circle" style="width:60px;height:60px;left:10%;animation-duration:12s;"></div>
+<div class="circle" style="width:40px;height:40px;left:30%;animation-duration:8s;"></div>
+<div class="circle" style="width:80px;height:80px;left:70%;animation-duration:14s;"></div>
+<div class="circle" style="width:30px;height:30px;left:85%;animation-duration:10s;"></div>
+
+<!-- CARD -->
+<div class="box">
+    <h2>💙 HBD 💙</h2>
+    <p>Enter your name to begin the surprise ✨</p>
+
+    <input type="text" id="name" placeholder="Your name here...">
+    <br>
+    <button onclick="go()">Start</button>
+</div>
+
+<script>
+function go(){
+    let name = document.getElementById("name").value;
+    if(name.trim() !== ""){
+        localStorage.setItem("name", name);
+        window.location.href = "greeting.html";
+    } else {
+        alert("Please enter your name");
+    }
+}
+</script>
+
+</body>
+</html>

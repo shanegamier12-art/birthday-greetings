@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cute Birthday Cake</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+
+    background: linear-gradient(135deg, #d9f2ff, #b3e5ff, #e6f7ff);
+}
+
+/* FLOATING ORBS */
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    animation: float 12s linear infinite;
+    filter: blur(2px);
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+
+/* CARD */
+.card {
+    text-align: center;
+    padding: 30px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    animation: fadeIn 1.5s ease;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: #2b8bbd;
+    text-shadow: 0 0 10px rgba(79,195,247,0.4);
+}
+
+p {
+    color: #555;
+    font-size: 13px;
+}
+
+/* CAKE IMAGE */
+.cake-img {
+    width: 220px;
+    margin-top: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cake-img:active {
+    transform: scale(0.98);
+}
+
+/* BUTTON */
+.next-btn {
+    margin-top: 15px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    background: #4cc9f0;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: 0.2s;
+}
+
+.next-btn:hover {
+    background: #2b8bbd;
+    transform: scale(1.05);
+}
+
+/* CONFETTI */
+.confetti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    top: -10px;
+    opacity: 0.9;
+    z-index: 9999;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgm" autoplay loop>
+    <source src="hbday.mp3" type="audio/mpeg">
+</audio>
+
+<!-- FLOATING ORBS -->
+<div class="orb" style="width:80px;height:80px;left:10%;animation-duration:14s;"></div>
+<div class="orb" style="width:50px;height:50px;left:25%;animation-duration:10s;"></div>
+<div class="orb" style="width:100px;height:100px;left:70%;animation-duration:16s;"></div>
+
+<!-- CARD -->
+<div class="card">
+
+    <h2 id="title">🎂 Happy Birthday 🎉</h2>
+   <p id="instruction">
+Make a wish first ✨<br>
+and click the cake 🎂<br><br>
+<span style="font-size:12px; color:#777;">
+Note: Please wait for the birthday song to load before clicking 💙
+</span>
+</p>
+
+    <!-- CAKE -->
+    <img src="cake.png" class="cake-img" onclick="celebrate()">
+
+    <!-- NEXT BUTTON -->
+    <br>
+    <button class="next-btn" onclick="goNext()">Next 💌</button>
+
+</div>
+
+<script>
+let name = localStorage.getItem("name");
+document.getElementById("title").innerText =
+"Happy Birthday Love " + name + " 🎉";
+
+/* autoplay fix for mobile */
+window.addEventListener("click", () => {
+    document.getElementById("bgm").play();
+});
+
+/* CONFETTI */
+function celebrate() {
+    for (let i = 0; i < 40; i++) {
+        let confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.background = randomColor();
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 4000);
+    }
+}
+
+/* COLORS */
+function randomColor() {
+    const colors = ["#ff4d6d", "#ffd166", "#06d6a0", "#4cc9f0", "#b5179e"];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+/* NEXT PAGE */
+function goNext() {
+    window.location.href = "card.html";
+}
+</script>
+
+</body>
+</html>
